@@ -7,20 +7,7 @@ console.log('consumer_secret= '     + process.env.consumer_secret);
 console.log('access_token_key= '    + process.env.access_token_key);
 console.log('access_token_secret= ' + process.env.access_token_secret);
 console.log('screen_name= '         + process.env.screen_name);
-console.log('----------------------------');
-/*
-process.env.consumer_key        = 'C4Jvl5SAT5fpfBIx5dqLLB1rk';
-process.env.consumer_secret     = 'KKtYPvHreDzYuMMK1yF3lKGP23tyx3U85eHfF0M8fpqANmcdh6';
-process.env.access_token_key    = '82756515-iskG2ey0INWYzNGpAu8JdbdGZ3r3Pd8wTmq8be3Ft';
-process.env.access_token_secret = 'f9KehWzBek6zWUHVZz9pvRN3gIbcTsqcNJH14wb9ZsoKT';
-process.env.screen_name         = 'neatsun'													// you twitter account name (e.g. @neatsun will be simply neatsun)
 
-console.log('consumer_key= '        + process.env.consumer_key);
-console.log('consumer_secret= '     + process.env.consumer_secret);
-console.log('access_token_key= '    + process.env.access_token_key);
-console.log('access_token_secret= ' + process.env.access_token_secret);
-console.log('screen_name= '         + process.env.screen_name);
-console.log('----------------------------');*/
 
 function main ()
 {
