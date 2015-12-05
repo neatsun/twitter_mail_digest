@@ -8,6 +8,10 @@ console.log('access_token_key= '    + process.env.access_token_key);
 console.log('access_token_secret= ' + process.env.access_token_secret);
 console.log('screen_name= '         + process.env.screen_name);
 
+console.log('gmail_sender_email= '  + process.env.gmail_sender_email);
+console.log('gmail_sender_pass= '   + process.env.gmail_sender_pass);
+console.log('send_digest_to_email= '+ process.env.send_digest_to_email);
+
 
 function main ()
 {
@@ -39,8 +43,8 @@ function sendit (twitts)
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
-            user: 'twittermaildigest@gmail.com',
-            pass: 'userpass83247HJK'
+            user: process.env.gmail_sender_email,
+            pass: process.env.gmail_sender_pass
         }
     });
 
@@ -67,7 +71,7 @@ function sendit (twitts)
     // setup e-mail data with unicode symbols
     var mailOptions = {
         from: 'twittermaildigest@gmail.com ✔ <twittermaildigest@gmail.com>', // sender address
-        to: 'neatsunz@gmail.com', // list of receivers
+        to: process.env.send_digest_to_email, // list of receivers
         subject: 'Twitter Mail Digest ✔'+ts_hms.toISOString(), // Subject line
         text: 'items' +twitts.length, // plaintext body
         html: htmlbody
