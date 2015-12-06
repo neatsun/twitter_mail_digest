@@ -23,7 +23,8 @@ function main ()
 	  access_token_secret  : process.env.access_token_secret
 	});
 	 
-	var params = {screen_name: process.env.screen_name };
+	var params = {screen_name: process.env.screen_name
+	count: 200};
 	client.get('statuses/home_timeline', params, function(error, tweets, response){
 	  if (!error) {
 	  	 sendit(tweets);  // now generate a mail from it 
