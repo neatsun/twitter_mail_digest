@@ -1,0 +1,36 @@
+{
+  "name": "twitter_mail_digest",
+  "version": "1.10.0",
+  "description": "an app for azure app server to create a daily digest of your twitter to mail",
+  "main": "run_twitter.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/neatsun/twitter_mail_digest.git"
+  },
+  "keywords": [
+    "e-mail",
+    "twitter",
+    "digest",
+  ],
+  "author": "Neatsun Ziv",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/neatsun/twitter_mail_digest/issues"
+  },
+  "homepage": "http://www.nodemailer.com",
+  "devDependencies": {
+    "twitter": "^1.2.3",
+    "nodemailer": "^1.1.10",
+    },
+  "dependencies": {
+    "twitter": "^1.2.3",
+    "nodemailer": "^1.1.10",
+  
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}
