@@ -100,7 +100,7 @@ function build_mail_content (twitts)
     twitts.forEach(function additemtomail(t){
         counter++;
         htmlbody+='<tr>'
-        htmlbody+='<td>'+counter+'+<img src="' +t.user.profile_image_url +'" style="width:32px;height:32px;"></td> '
+        htmlbody+='<td style="width:36px">'+counter+'<br><img src="' +t.user.profile_image_url +'" style="width:32px;height:32px;"><br>'+ t.user.name+'('+t.user.lang+')</td>'  ;
         htmlbody+='<td>'+ t.text ;
     
         
@@ -121,7 +121,7 @@ function build_mail_content (twitts)
     htmlbody+='</table>';
 
    //  console.log(htmlbody);
-
+     console.log("----- End building HTml -----");
     return  htmlbody;
 }
 
@@ -154,7 +154,7 @@ function sendit (html_body,item_count)
     };
 
 
-console.log(mailOptions);
+//console.log(mailOptions);
 
     // send mail with defined transport object
     transporter.sendMail(mailOptions, function(error, info){
