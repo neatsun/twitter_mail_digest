@@ -34,7 +34,7 @@ function main ()
     });
 
     var params=  {screen_name: process.env.screen_name,  count: 200};
-    var fulltweets="";
+    var fulltweets=[];
 
   //------------------------------------ Get twitter data ---------------------------------
     function get_twitts()
@@ -44,23 +44,34 @@ function main ()
         client.get('statuses/home_timeline', params, function(error, tweets, response){
             if (!error) {           //-------------- got first 200 tweets 
 
-                var last_tweet=tweets[tweets.length-1];
-                fulltweets+=JSON.stringify(tweets);
-                            //console.log(fulltweets.length);
+                if (tweets.length>1)
+                {
+                    var last_tweet=tweets[tweets.length-1];
+                    
+                    fulltweets=fulltweets.concat(tweets);
+                    
+                    console.log("last tweet time "+last_tweet + " out of "+ tweets.length);
+                            
+                    var difff= Date.now() - Date.parse(last_tweet.created_at);
+                                // console.log("diff " +difff + " vs " + 1000*60*60*24);  // debug itteration till we get 24 H
+                    if (difff <1000*60*60*24)  // check we have all that was tweeted in the past 24 Hours 
+                     {
+                        console.log("we are not done- now get more twitts ");
+                        params = {screen_name: process.env.screen_name,  count: 200, max_id:last_tweet.id };  //get from last tweet we got 
+                        get_twitts();
+                     }
+                    else
+                    {
+                        console.log("we are done!!! -> sending to mail size:"+fulltweets.length);
                         
-                var difff= Date.now() - Date.parse(last_tweet.created_at);
-                            // console.log("diff " +difff + " vs " + 1000*60*60*24);  // debug itteration till we get 24 H
-                if (difff <1000*60*60*24)  // check we have all that was tweeted in the past 24 Hours 
-                 {
-                    console.log("we are not done- now get more twitts ");
-                    params = {screen_name: process.env.screen_name,  count: 200, max_id:last_tweet.id };  //get from last tweet we got 
-                    get_twitts();
-                 }
+                        sendit(build_mail_content(fulltweets),fulltweets.length);  // now generate a mail from it 
+                    }
+                }
                 else
                 {
-                    console.log("we are done!!! -> sending to mail size:"+fulltweets.length);
-                    var t= JSON.parse(fulltweets);
-                    sendit(build_mail_content(t),t.length);  // now generate a mail from it 
+                        console.log("we are done(no more tweets )!!! -> sending to mail size:"+fulltweets.length);
+                        
+                        sendit(build_mail_content(fulltweets),fulltweets.length);  // now generate a mail from it 
                 }
             }
             if (error) { // probably couldnt login or over quota 
@@ -84,23 +95,24 @@ function build_mail_content (twitts)
 
     htmlbody ='<b> items ' +twitts.length +'</b>'
     htmlbody+='<table style="width:100%" border="1">'
+    var counter=0;
 
     twitts.forEach(function additemtomail(t){
+        counter++;
         htmlbody+='<tr>'
-        htmlbody+='<td><img src="' +t.user.profile_image_url +'" style="width:32px;height:32px;"></td> '
+        htmlbody+='<td>'+counter+'+<img src="' +t.user.profile_image_url +'" style="width:32px;height:32px;"></td> '
         htmlbody+='<td>'+ t.text ;
     
         
-        console.log(t);
+     //   console.log(t);
         mda=t.entities.media;
         if (typeof(mda) != "undefined"){
-            console.log(">>>>>>>>");
+            
             mda.forEach(function prnt(tt){
-                    console.log(tt);
-                    console.log("-----"+tt.sizes.small.w);
+                       
                     htmlbody+='<img src="' +tt.media_url +'" style="width:'+tt.sizes.small.w+'px;height:'+tt.sizes.small.h+'px;"> '
             });
-            console.log("<<<<<");
+            
         }
 
          htmlbody+='</td></tr>';
@@ -108,7 +120,7 @@ function build_mail_content (twitts)
     }) ; 
     htmlbody+='</table>';
 
-     console.log(htmlbody);
+   //  console.log(htmlbody);
 
     return  htmlbody;
 }
@@ -158,6 +170,7 @@ console.log(mailOptions);
 
 //---------------------------------------  run ----------------------
 
+console.log("------------start");
 main();             // run once 
 
 setInterval(function(){
