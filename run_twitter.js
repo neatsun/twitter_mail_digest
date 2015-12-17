@@ -8,6 +8,8 @@
                                                                                                                                
 
 
+// master mode
+
 var nodemailer = require('nodemailer');
 var Twitter    = require('twitter');
 
