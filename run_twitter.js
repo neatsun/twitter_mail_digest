@@ -98,11 +98,18 @@ function build_mail_content (twitts)
     htmlbody ='<b> items ' +twitts.length +'</b>'
     htmlbody+='<table style="width:100%" border="1">'
     var counter=0;
+    var langtext ;
 
     twitts.forEach(function additemtomail(t){
         counter++;
         htmlbody+='<tr>'
-        htmlbody+='<td style="width:36px">'+counter+'<br><img src="' +t.user.profile_image_url +'" style="width:32px;height:32px;"><br>'+ t.user.name+'('+t.user.lang+')</td>'  ;
+
+        if (t.user.lang!="en")
+           langtext= '<br>('+t.user.lang+')';
+        else
+            langtext="";
+
+        htmlbody+='<td style="width:36px">'+counter+'<br><img src="' +t.user.profile_image_url +'" style="width:32px;height:32px;"><br>'+ t.user.name+langtext+'</td>'  ;
         htmlbody+='<td>'+ t.text ;
     
         
