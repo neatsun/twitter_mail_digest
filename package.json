@@ -10,11 +10,7 @@
     "type": "git",
     "url": "https://github.com/neatsun/twitter_mail_digest.git"
   },
-  "keywords": {
-    "e-mail",
-    "twitter",
-    "digest",
-  },
+  "keywords": [],
   "author": "Neatsun Ziv",
   "license": "MIT",
   "bugs": {
@@ -23,11 +19,11 @@
   "homepage": "http://www.nodemailer.com",
   "devDependencies": {
     "twitter": "^1.2.3",
-    "nodemailer": "^1.1.10",
+    "nodemailer": "^1.1.10"
     },
   "dependencies": {
     "twitter": "^1.2.3",
-    "nodemailer": "^1.1.10",
+    "nodemailer": "^1.1.10"
   
   },
   "engines": {
